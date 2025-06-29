@@ -1,0 +1,27 @@
+<style>
+  body {
+    background: linear-gradient(to bottom right, #e3f9e5, #c8f2d4); /* Vert pastel */
+    font-family: 'Segoe UI', sans-serif;
+    color: #2e4e36;
+    text-align: center;
+    padding: 50px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+    color: #3a7e5a;
+    margin-bottom: 20px;
+  }
+
+  .message {
+    font-size: 1.4em;
+    margin-top: 30px;
+    white-space: pre-line;
+    background-color: #ffffffcc;
+    border-radius: 20px;
+    padding: 30px;
+    display: inline-block;
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+</style>
