@@ -11,11 +11,8 @@
 
   <script>
     const messages = {
-      "2024-08-05": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2024-08-06": "Jour 2 : Aujourd’hui, je voulais te dire à quel point ton sourire me rend fou.",
-      "2024-08-07": "Jour 3 : Si j’étais un mot, je serais 'chance', parce que c’est ce que j’ai eu en te rencontrant.",
-      // ...
-      "2024-09-09": "Jour 36 : Aujourd’hui, c’est un jour spécial... prépare-toi pour une belle surprise ❤️"
+      "2025-08-05": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
+
     };
 
     function formatDate(date) {
@@ -31,9 +28,9 @@
 
     if (messages[todayKey]) {
       messageElement.textContent = messages[todayKey];
-    } else if (today < new Date("2024-08-05")) {
+    } else if (today < new Date("2025-08-05")) {
       messageElement.textContent = "Patience... la magie commence le 5 août ✨";
-    } else if (today > new Date("2024-09-09")) {
+    } else if (today > new Date("2025-09-09")) {
       messageElement.textContent = "Les surprises sont finies... mais pas mon amour pour toi 💖";
     } else {
       messageElement.textContent = "Le message du jour n’a pas encore été ajouté...";
