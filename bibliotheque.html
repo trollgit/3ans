@@ -10,6 +10,7 @@
       color: #2e4e36;
       text-align: center;
       padding: 50px;
+      margin: 0;
     }
 
     h1 {
@@ -58,6 +59,12 @@
       max-width: 500px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       position: relative;
+      transition: opacity 0.3s, text-decoration 0.3s;
+    }
+
+    .bon.done {
+      opacity: 0.5;
+      text-decoration: line-through;
     }
 
     .bon p {
@@ -65,17 +72,18 @@
       margin: 10px 0;
     }
 
-    .bon .actions {
+    .actions {
       margin-top: 10px;
     }
 
-    .bon button {
+    .actions button {
       padding: 6px 12px;
       margin: 0 5px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-size: 0.9em;
+      transition: opacity 0.2s;
     }
 
     .done-btn {
@@ -88,8 +96,8 @@
       color: white;
     }
 
-    .bon.invisible {
-      display: none;
+    .actions button:hover {
+      opacity: 0.8;
     }
   </style>
 </head>
@@ -104,7 +112,10 @@
   <div id="library"></div>
 
   <script>
-    const bons = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
+    // On récupère la liste des bons débloqués (uniquement les clés)
+    let bons = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
+    // On récupère aussi l'état “fait” pour chaque bon
+    let faits = JSON.parse(localStorage.getItem("bonsFaits") || "[]");
 
     function renderBons() {
       const container = document.getElementById("library");
@@ -115,31 +126,40 @@
         return;
       }
 
-      bons.forEach((bon, index) => {
+      bons.forEach((code, index) => {
         const div = document.createElement("div");
-        div.className = "bon";
+        div.className = "bon" + (faits.includes(code) ? " done" : "");
         div.innerHTML = `
-          <p>${bon}</p>
+          <p>${code}</p>
           <div class="actions">
-            <button class="done-btn" onclick="toggleBon(${index})">Fait ✅</button>
-            <button class="delete-btn" onclick="deleteBon(${index})">Supprimer 🗑️</button>
+            <button class="done-btn" onclick="toggleDone('${code}', this)">Fait ✅</button>
+            <button class="delete-btn" onclick="deleteBon('${code}')">Supprimer 🗑️</button>
           </div>
         `;
         container.appendChild(div);
       });
     }
 
-    function toggleBon(index) {
-      const bonEl = document.getElementsByClassName("bon")[index];
-      bonEl.classList.toggle("invisible");
+    function toggleDone(code, btn) {
+      const div = btn.closest('.bon');
+      div.classList.toggle("done");
+      if (faits.includes(code)) {
+        // on retire de faits
+        faits = faits.filter(c => c !== code);
+      } else {
+        faits.push(code);
+      }
+      localStorage.setItem("bonsFaits", JSON.stringify(faits));
     }
 
-    function deleteBon(index) {
-      if (confirm("Supprimer ce bon ?")) {
-        bons.splice(index, 1);
-        localStorage.setItem("bonsDebloques", JSON.stringify(bons));
-        renderBons();
-      }
+    function deleteBon(code) {
+      if (!confirm("Supprimer ce bon ?")) return;
+      // on retire de la liste bons et faits
+      bons = bons.filter(c => c !== code);
+      faits = faits.filter(c => c !== code);
+      localStorage.setItem("bonsDebloques", JSON.stringify(bons));
+      localStorage.setItem("bonsFaits", JSON.stringify(faits));
+      renderBons();
     }
 
     renderBons();
