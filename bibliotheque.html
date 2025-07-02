@@ -28,16 +28,40 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       display: none;
       font-size: 1.2em;
+      position: relative;
+      transition: opacity 0.3s;
     }
 
     .bon.visible {
       display: block;
-      animation: fadeIn 0.5s ease;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .bon.fait {
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+
+    .actions {
+      margin-top: 15px;
+    }
+
+    .actions button {
+      margin: 0 8px;
+      padding: 6px 12px;
+      font-size: 0.95em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .fait-btn {
+      background-color: #70c97c;
+      color: white;
+    }
+
+    .supprimer-btn {
+      background-color: #d14545;
+      color: white;
     }
   </style>
 </head>
@@ -45,19 +69,70 @@
 
   <h1>📚 Mes bons débloqués</h1>
 
-  <div id="massage" class="bon">💆‍♀️ Bon pour un massage maison offert par ton amoureux 🥰</div>
-  <div id="disney" class="bon">🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸</div>
-  <div id="sucre" class="bon">🍭 Bon pour une tournée de bonbons ou ton snack préféré 💖</div>
+  <div id="massage" class="bon">💆‍♀️ Bon pour un massage 🥰
+    <div class="actions">
+      <button class="fait-btn" onclick="marquerFait('massage')">Fait ✅</button>
+      <button class="supprimer-btn" onclick="supprimerBon('massage')">Supprimer ❌</button>
+    </div>
+  </div>
+
+  <div id="disney" class="bon">🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸
+    <div class="actions">
+      <button class="fait-btn" onclick="marquerFait('disney')">Fait ✅</button>
+      <button class="supprimer-btn" onclick="supprimerBon('disney')">Supprimer ❌</button>
+    </div>
+  </div>
+
+  <div id="sucre" class="bon">🍭 Bon pour une tournée de bonbons ou ton snack préféré 💖
+    <div class="actions">
+      <button class="fait-btn" onclick="marquerFait('sucre')">Fait ✅</button>
+      <button class="supprimer-btn" onclick="supprimerBon('sucre')">Supprimer ❌</button>
+    </div>
+  </div>
 
   <script>
     const bonsDebloques = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
+    const bonsUtilises = JSON.parse(localStorage.getItem("bonsUtilises") || "[]");
 
     bonsDebloques.forEach(code => {
       const bonDiv = document.getElementById(code);
       if (bonDiv) {
         bonDiv.classList.add("visible");
+        if (bonsUtilises.includes(code)) {
+          bonDiv.classList.add("fait");
+        }
       }
     });
+
+    function marquerFait(code) {
+      const bonDiv = document.getElementById(code);
+      if (bonDiv && !bonDiv.classList.contains("fait")) {
+        bonDiv.classList.add("fait");
+
+        let bonsUtilises = JSON.parse(localStorage.getItem("bonsUtilises") || "[]");
+        if (!bonsUtilises.includes(code)) {
+          bonsUtilises.push(code);
+          localStorage.setItem("bonsUtilises", JSON.stringify(bonsUtilises));
+        }
+      }
+    }
+
+    function supprimerBon(code) {
+      // Supprime de l'affichage
+      const bonDiv = document.getElementById(code);
+      if (bonDiv) {
+        bonDiv.remove();
+      }
+
+      // Supprime du localStorage
+      let bonsDebloques = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
+      bonsDebloques = bonsDebloques.filter(item => item !== code);
+      localStorage.setItem("bonsDebloques", JSON.stringify(bonsDebloques));
+
+      let bonsUtilises = JSON.parse(localStorage.getItem("bonsUtilises") || "[]");
+      bonsUtilises = bonsUtilises.filter(item => item !== code);
+      localStorage.setItem("bonsUtilises", JSON.stringify(bonsUtilises));
+    }
   </script>
 
 </body>
