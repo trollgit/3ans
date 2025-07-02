@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Gratte ton bon 🎁</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #e3f9e5, #c8f2d4);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+      color: #2e4e36;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #3a7e5a;
+      margin-bottom: 20px;
+    }
+
+    .scratch-container {
+      position: relative;
+      display: inline-block;
+      width: 300px;
+      height: 150px;
+      margin: 30px auto;
+      background: #d1e7d6;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      line-height: 150px;
+      font-size: 1.3em;
+      color: #2e4e36;
+    }
+
+    .cover {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: #bbb;
+      border-radius: 15px;
+      cursor: crosshair;
+      z-index: 2;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #70c97c;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      display: none;
+    }
+    button:hover {
+      background-color: #58b464;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎉 Gratte pour révéler ton bon</h1>
+
+  <div class="scratch-container" id="bon-content">
+    <span id="bonText"></span>
+    <canvas class="cover" id="scratchLayer"></canvas>
+  </div>
+
+  <button id="validerBtn">Fait ✅</button>
+
+  <script>
+    // Bons possibles et leurs contenus
+    const bons = {
+      massage: "💆‍♀️ Bon pour un massage maison offert par ton amoureux 🥰",
+      disney: "🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸",
+      sucre: "🍭 Bon pour une tournée de bonbons ou ton snack préféré 💖"
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+
+    const bonText = document.getElementById("bonText");
+    const canvas = document.getElementById("scratchLayer");
+    const button = document.getElementById("validerBtn");
+
+    // Affiche le texte du bon en arrière-plan
+    if (bons[code]) {
+      bonText.textContent = bons[code];
+    } else {
+      bonText.textContent = "Code inconnu...";
+      canvas.style.display = "none";
+    }
+
+    // Effet de grattage simplifié
+    const ctx = canvas.getContext("2d");
+    canvas.width = 300;
+    canvas.height = 150;
+    ctx.fillStyle = "#bbb";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    canvas.addEventListener("mousemove", (e) => {
+      if (e.buttons !== 1) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(x, y, 20, 0, Math.PI * 2, false);
+      ctx.fill();
+      ctx.globalCompositeOperation = "source-over";
+
+      // Vérifie si assez gratté
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let transparent = 0;
+      for (let i = 3; i < pixels.length; i += 4) {
+        if (pixels[i] < 128) transparent++;
+      }
+      if (transparent > pixels.length / 8) {
+        canvas.style.display = "none";
+        button.style.display = "inline-block";
+      }
+    });
+
+    // Sauvegarde dans localStorage
+    button.addEventListener("click", () => {
+      let bonsDebloques = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
+      if (!bonsDebloques.includes(code)) {
+        bonsDebloques.push(code);
+        localStorage.setItem("bonsDebloques", JSON.stringify(bonsDebloques));
+      }
+      window.location.href = "bibliotheque.html";
+    });
+  </script>
+</body>
+</html>
