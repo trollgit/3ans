@@ -10,6 +10,7 @@
       text-align: center;
       padding: 60px 20px;
       color: #2e4e36;
+      margin: 0;
     }
 
     h1 {
@@ -37,6 +38,8 @@
 
     #bonText {
       z-index: 1;
+      padding: 0 10px;
+      word-wrap: break-word;
     }
 
     .cover {
@@ -60,6 +63,7 @@
       font-size: 1em;
       cursor: pointer;
       display: none;
+      transition: background-color 0.2s;
     }
 
     button:hover {
@@ -79,43 +83,49 @@
   <button id="validerBtn">Ajouter à la bibliothèque ✅</button>
 
   <script>
+    // Définition des bons disponibles
     const bons = {
       massage: "💆‍♀️ Bon pour un massage 🥰",
-      soiree: "🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸",
-      sucre: "🍭 Bon pour une tournée de bonbons ou ton snack préféré 💖"
+      disney : "🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸",
+      sucre  : "🍭 Bon pour une tournée de bonbons ou ton snack préféré 💖"
     };
 
+    // Récupération du paramètre ?code=… dans l'URL
     const params = new URLSearchParams(window.location.search);
-    const code = params.get("code");
+    const code   = params.get("code");
 
     const bonText = document.getElementById("bonText");
-    const canvas = document.getElementById("scratchLayer");
-    const button = document.getElementById("validerBtn");
+    const canvas  = document.getElementById("scratchLayer");
+    const button  = document.getElementById("validerBtn");
 
+    // Affichage du texte ou message d'erreur
     if (bons[code]) {
       bonText.textContent = bons[code];
     } else {
-      bonText.textContent = "Code inconnu...";
+      bonText.textContent = "Code inconnu…";
       canvas.style.display = "none";
     }
 
+    // Initialisation du layer de grattage
     const ctx = canvas.getContext("2d");
-    canvas.width = 300;
+    canvas.width  = 300;
     canvas.height = 150;
     ctx.fillStyle = "#bbb";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Événement de grattage
     canvas.addEventListener("mousemove", (e) => {
-      if (e.buttons !== 1) return;
+      if (e.buttons !== 1) return;  // clic maintenu seulement
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       ctx.globalCompositeOperation = "destination-out";
       ctx.beginPath();
-      ctx.arc(x, y, 20, 0, Math.PI * 2, false);
+      ctx.arc(x, y, 20, 0, Math.PI * 2);
       ctx.fill();
       ctx.globalCompositeOperation = "source-over";
 
+      // Vérifie si assez gratté (>12.5% de transparence)
       const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       let transparent = 0;
       for (let i = 3; i < pixels.length; i += 4) {
@@ -127,11 +137,12 @@
       }
     });
 
+    // Au clic sur "Ajouter à la bibliothèque"
     button.addEventListener("click", () => {
-      let bonsDebloques = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
-      if (!bonsDebloques.includes(code)) {
-        bonsDebloques.push(code);
-        localStorage.setItem("bonsDebloques", JSON.stringify(bonsDebloques));
+      let debloques = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
+      if (!debloques.includes(code)) {
+        debloques.push(code);
+        localStorage.setItem("bonsDebloques", JSON.stringify(debloques));
       }
       window.location.href = "bibliotheque.html";
     });
