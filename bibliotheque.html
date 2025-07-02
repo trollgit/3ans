@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ma bibliothèque de bons 📚</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #e3f9e5, #c8f2d4);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 60px 20px;
+      color: #2e4e36;
+    }
+
+    h1 {
+      font-size: 2.4em;
+      color: #3a7e5a;
+      margin-bottom: 30px;
+    }
+
+    .bon {
+      background: #ffffffcc;
+      border-radius: 20px;
+      padding: 25px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      display: none;
+      font-size: 1.2em;
+    }
+
+    .bon.visible {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📚 Mes bons débloqués</h1>
+
+  <div id="massage" class="bon">💆‍♀️ Bon pour un massage maison offert par ton amoureux 🥰</div>
+  <div id="disney" class="bon">🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸</div>
+  <div id="sucre" class="bon">🍭 Bon pour une tournée de bonbons ou ton snack préféré 💖</div>
+
+  <script>
+    const bonsDebloques = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
+
+    bonsDebloques.forEach(code => {
+      const bonDiv = document.getElementById(code);
+      if (bonDiv) {
+        bonDiv.classList.add("visible");
+      }
+    });
+  </script>
+
+</body>
+</html>
