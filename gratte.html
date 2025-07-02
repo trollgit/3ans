@@ -68,12 +68,11 @@
     <canvas class="cover" id="scratchLayer"></canvas>
   </div>
 
-  <button id="validerBtn">Fait ✅</button>
+  <button id="validerBtn">Ajouter à la bibliothèque ✅</button>
 
   <script>
-    // Bons possibles et leurs contenus
     const bons = {
-      massage: "💆‍♀️ Bon pour un massage maison offert par ton amoureux 🥰",
+      massage: "💆‍♀️ Bon pour un massage 🥰",
       disney: "🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸",
       sucre: "🍭 Bon pour une tournée de bonbons ou ton snack préféré 💖"
     };
@@ -85,7 +84,6 @@
     const canvas = document.getElementById("scratchLayer");
     const button = document.getElementById("validerBtn");
 
-    // Affiche le texte du bon en arrière-plan
     if (bons[code]) {
       bonText.textContent = bons[code];
     } else {
@@ -93,7 +91,6 @@
       canvas.style.display = "none";
     }
 
-    // Effet de grattage simplifié
     const ctx = canvas.getContext("2d");
     canvas.width = 300;
     canvas.height = 150;
@@ -111,7 +108,6 @@
       ctx.fill();
       ctx.globalCompositeOperation = "source-over";
 
-      // Vérifie si assez gratté
       const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       let transparent = 0;
       for (let i = 3; i < pixels.length; i += 4) {
@@ -123,7 +119,6 @@
       }
     });
 
-    // Sauvegarde dans localStorage
     button.addEventListener("click", () => {
       let bonsDebloques = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
       if (!bonsDebloques.includes(code)) {
