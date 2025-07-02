@@ -10,6 +10,7 @@
       color: #2e4e36;
       text-align: center;
       padding: 50px;
+      margin: 0;
     }
 
     h1 {
@@ -89,15 +90,15 @@
 
   <script>
     const codes = {
-      "massage": "gratte.html?bon=massage",
-      "soiree": "gratte.html?bon=soiree",
-      "surprise": "gratte.html?bon=surprise"
+      "massage": "gratte.html?code=massage",
+      "disney" : "gratte.html?code=disney",
+      "sucre"  : "gratte.html?code=sucre"
     };
 
     function checkCode() {
-      const code = document.getElementById("code").value.toLowerCase().trim();
-      if (codes[code]) {
-        window.location.href = codes[code];
+      const c = document.getElementById("code").value.toLowerCase().trim();
+      if (codes[c]) {
+        window.location.href = codes[c];
       } else {
         alert("Oops, ce code ne fonctionne pas 🧐");
       }
