@@ -4,8 +4,72 @@
   <meta charset="UTF-8">
   <title>Notre petite surprise</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #e3f9e5, #c8f2d4); /* Vert pastel */
+      font-family: 'Segoe UI', sans-serif;
+      color: #2e4e36;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .top-bar a button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .top-bar .code-btn {
+      background-color: #6ccf84;
+      color: white;
+    }
+
+    .top-bar .biblio-btn {
+      background-color: #54b6e0;
+      color: white;
+    }
+
+    .top-bar a button:hover {
+      opacity: 0.85;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #3a7e5a;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      font-size: 1.4em;
+      margin-top: 30px;
+      white-space: pre-line;
+      background-color: #ffffffcc;
+      border-radius: 20px;
+      padding: 30px;
+      display: inline-block;
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    a {
+      color: #5a298f;
+    }
+  </style>
 </head>
 <body>
+
   <div class="top-bar">
     <a href="bon.html"><button class="code-btn">🎟️ Rentrer un code</button></a>
     <a href="bibliotheque.html"><button class="biblio-btn">📚 Bibliothèque</button></a>
@@ -17,40 +81,40 @@
   <script>
     const messages = {
       "2025-08-05": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-06": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-07": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-08": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-09": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-10": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-11": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-12": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-13": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-14": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-15": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-16": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-17": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-18": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-19": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-20": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-21": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-22": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-23": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-24": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-25": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-26": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-27": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-28": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-29": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-30": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-01": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-02": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-03": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-04": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-05": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-06": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-07": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-08": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-09": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
+      "2025-08-06": "Jour 2 : Le premier fou rire ensemble 😄",
+      "2025-08-07": "Jour 3 : Ce petit resto qu’on a adoré 🍝",
+      "2025-08-08": "Jour 4 : Notre première photo 📸",
+      "2025-08-09": "Jour 5 : Je t’ai dit ‘je t’aime’… et j’ai jamais arrêté 💗",
+      "2025-08-10": "Jour 6 : Un bisou volé dans la cuisine 😚",
+      "2025-08-11": "Jour 7 : Promenade main dans la main 🌙",
+      "2025-08-12": "Jour 8 : Soirée cocooning et chocolat chaud 🍫",
+      "2025-08-13": "Jour 9 : Une chanson rien que pour nous 🎶",
+      "2025-08-14": "Jour 10 : Nos fous rires pour rien 😂",
+      "2025-08-15": "Jour 11 : Ton regard le jour de mon cadeau surprise 🎁",
+      "2025-08-16": "Jour 12 : Ce film nul qu’on a adoré critiquer ensemble 🎬",
+      "2025-08-17": "Jour 13 : Nos petits déjeuners à rallonge 🥐",
+      "2025-08-18": "Jour 14 : Une lettre, un mot doux 💌",
+      "2025-08-19": "Jour 15 : Une nuit d’été à rêver 🌠",
+      "2025-08-20": "Jour 16 : Notre recette fétiche 🍕",
+      "2025-08-21": "Jour 17 : Le silence confortable avec toi 🤍",
+      "2025-08-22": "Jour 18 : Quand tu m’as fait rire au mauvais moment 😅",
+      "2025-08-23": "Jour 19 : Tes câlins magiques 🤗",
+      "2025-08-24": "Jour 20 : T’es mon endroit préféré 🏡",
+      "2025-08-25": "Jour 21 : Un fou rire au lit 🛏️",
+      "2025-08-26": "Jour 22 : Une journée pluvieuse mais parfaite ☔",
+      "2025-08-27": "Jour 23 : Une danse improvisée 💃",
+      "2025-08-28": "Jour 24 : Une main glissée dans la mienne 💞",
+      "2025-08-29": "Jour 25 : Nos regards complices 👀",
+      "2025-08-30": "Jour 26 : Quand je t’ai vu dormir 😴",
+      "2025-09-01": "Jour 27 : Notre petit rituel secret 🤫",
+      "2025-09-02": "Jour 28 : Un fou rire qui a duré une heure 😂",
+      "2025-09-03": "Jour 29 : Un cœur rempli d’amour 💓",
+      "2025-09-04": "Jour 30 : Un bisou inattendu 💋",
+      "2025-09-05": "Jour 31 : Une journée rien qu’à nous ☀️",
+      "2025-09-06": "Jour 32 : Je pense à toi. Toujours. 🌷",
+      "2025-09-07": "Jour 33 : Une déclaration à refaire 📝",
+      "2025-09-08": "Jour 34 : Une nuit blanche de discussions 🌃",
+      "2025-09-09": "Jour 35 : J’ai de la chance de t’avoir 💖"
     };
 
     function formatDate(date) {
