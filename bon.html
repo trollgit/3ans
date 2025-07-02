@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Bibliothèque de bons</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #e3f9e5, #c8f2d4);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      color: #2e4e36;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #3a7e5a;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+    }
+
+    .bon {
+      background: #ffffffcc;
+      border-radius: 20px;
+      padding: 25px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .bon:hover {
+      transform: scale(1.02);
+    }
+
+    .contenu {
+      display: none;
+      margin-top: 15px;
+      font-size: 1.2em;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      width: 60%;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 8px 15px;
+      margin-left: 10px;
+      background-color: #70c97c;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #58b464;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Ma bibliothèque de bons</h1>
+
+  <div class="bon" data-code="massage">
+    <p><strong>Bon n°1 :</strong> Déverrouille-moi avec le bon mot...</p>
+    <input type="text" placeholder="Mot secret">
+    <button>Déverrouiller</button>
+    <div class="contenu">💆‍♀️ Bon pour un massage maison offert par ton amoureux 🥰</div>
+  </div>
+
+  <div class="bon" data-code="disney">
+    <p><strong>Bon n°2 :</strong> Tu connais ce mot magique... ✨</p>
+    <input type="text" placeholder="Mot secret">
+    <button>Déverrouiller</button>
+    <div class="contenu">🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸</div>
+  </div>
+
+  <div class="bon" data-code="sucre">
+    <p><strong>Bon n°3 :</strong> Un indice sucré peut t’aider 🍬</p>
+    <input type="text" placeholder="Mot secret">
+    <button>Déverrouiller</button>
+    <div class="contenu">🍭 Bon pour une tournée de bonbons ou ton snack préféré, offert avec un bisou !</div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.bon').forEach(bon => {
+      const input = bon.querySelector('input');
+      const button = bon.querySelector('button');
+      const contenu = bon.querySelector('.contenu');
+      const correctCode = bon.dataset.code.toLowerCase();
+
+      button.addEventListener('click', () => {
+        if (input.value.trim().toLowerCase() === correctCode) {
+          contenu.style.display = 'block';
+          input.style.display = 'none';
+          button.style.display = 'none';
+        } else {
+          alert("Hmm... essaie encore !");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
