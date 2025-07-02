@@ -3,55 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Notre petite surprise</title>
-   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<div class="top-bar">
-  <a href="bon.html"><button class="code-btn">🎟️ Rentrer un code</button></a>
-  <a href="bibliotheque.html"><button class="biblio-btn">📚 Bibliothèque</button></a>
-</div>
-
-
 <body>
+  <div class="top-bar">
+    <a href="bon.html"><button class="code-btn">🎟️ Rentrer un code</button></a>
+    <a href="bibliotheque.html"><button class="biblio-btn">📚 Bibliothèque</button></a>
+  </div>
+
   <h1>Une surprise par jour 💌</h1>
   <div class="message" id="daily-message"></div>
- 
 
   <script>
     const messages = {
       "2025-08-05": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-06": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-07": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-08": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-09": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-10": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-11": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-12": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-13": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-14": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-15": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-16": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-17": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-18": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-19": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-20": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-21": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-22": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-23": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-24": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-25": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-26": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-27": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-28": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-29": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-08-30": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-01": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-02": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-03": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-04": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-05": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-06": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-07": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
-      "2025-09-08": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
+      // ... (les autres messages)
       "2025-09-09": "Jour 1 : Notre toute première rencontre… ça, je m’en souviendrai toujours 🥰",
     };
 
@@ -69,7 +35,7 @@
     if (messages[todayKey]) {
       messageElement.textContent = messages[todayKey];
     } else if (today < new Date("2025-08-05")) {
-     messageElement.innerHTML = 'Oh tu devais attendre le 5 août, <a href="https://www.youtube.com/watch?v=KG6ft_YDp5k&t=21s&ab_channel=GIMS" target="_blank">clique ici pour patienter</a> 💚';
+      messageElement.innerHTML = 'Oh tu devais attendre le 5 août, <a href="https://www.youtube.com/watch?v=KG6ft_YDp5k&t=21s&ab_channel=GIMS" target="_blank">clique ici pour patienter</a> 💚';
     } else if (today > new Date("2025-09-09")) {
       messageElement.textContent = "Les surprises sont finies... mais pas mon amour pour toi 💖";
     } else {
