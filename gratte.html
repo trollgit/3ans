@@ -50,6 +50,7 @@
       background: #bbb;
       border-radius: 15px;
       cursor: crosshair;
+      touch-action: none;      /* indispensable pour capter touch sur mobile */
       z-index: 2;
     }
 
@@ -65,7 +66,6 @@
       display: none;
       transition: background-color 0.2s;
     }
-
     button:hover {
       background-color: #58b464;
     }
@@ -83,14 +83,14 @@
   <button id="validerBtn">Ajouter à la bibliothèque ✅</button>
 
   <script>
-    // Définition des bons disponibles
+    // 1) Définition des bons
     const bons = {
       massage: "💆‍♀️ Bon pour un massage 🥰",
       disney : "🎬 Soirée Disney à deux avec plaid, popcorn et toi dans mes bras 🧸",
       sucre  : "🍭 Bon pour une tournée de bonbons ou ton snack préféré 💖"
     };
 
-    // Récupération du paramètre ?code=… dans l'URL
+    // 2) Récupération du code dans l'URL
     const params = new URLSearchParams(window.location.search);
     const code   = params.get("code");
 
@@ -98,7 +98,7 @@
     const canvas  = document.getElementById("scratchLayer");
     const button  = document.getElementById("validerBtn");
 
-    // Affichage du texte ou message d'erreur
+    // 3) Affichage du texte ou message d'erreur
     if (bons[code]) {
       bonText.textContent = bons[code];
     } else {
@@ -106,38 +106,41 @@
       canvas.style.display = "none";
     }
 
-    // Initialisation du layer de grattage
+    // 4) Initialisation du canvas de grattage
     const ctx = canvas.getContext("2d");
-    canvas.width  = 300;
-    canvas.height = 150;
+    canvas.width  = canvas.parentElement.clientWidth;
+    canvas.height = canvas.parentElement.clientHeight;
     ctx.fillStyle = "#bbb";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Événement de grattage
-    canvas.addEventListener("mousemove", (e) => {
-      if (e.buttons !== 1) return;  // clic maintenu seulement
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    // 5) Gérer grattage avec Pointer Events (support souris + tactile)
+    function scratch(x, y) {
       ctx.globalCompositeOperation = "destination-out";
       ctx.beginPath();
       ctx.arc(x, y, 20, 0, Math.PI * 2);
       ctx.fill();
       ctx.globalCompositeOperation = "source-over";
 
-      // Vérifie si assez gratté (>12.5% de transparence)
-      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-      let transparent = 0;
-      for (let i = 3; i < pixels.length; i += 4) {
-        if (pixels[i] < 128) transparent++;
+      // Si plus de 12.5% de surface grattée, on dévoile
+      const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      let alphaCount = 0;
+      for (let i = 3; i < data.length; i += 4) {
+        if (data[i] < 128) alphaCount++;
       }
-      if (transparent > pixels.length / 8) {
+      if (alphaCount > data.length / 8) {
         canvas.style.display = "none";
         button.style.display = "inline-block";
       }
+    }
+
+    // On active le grattage au pointer
+    canvas.addEventListener("pointermove", e => {
+      if (e.pressure === 0) return;  // non appuyé
+      const rect = canvas.getBoundingClientRect();
+      scratch(e.clientX - rect.left, e.clientY - rect.top);
     });
 
-    // Au clic sur "Ajouter à la bibliothèque"
+    // 6) Sauvegarde et redirection
     button.addEventListener("click", () => {
       let debloques = JSON.parse(localStorage.getItem("bonsDebloques") || "[]");
       if (!debloques.includes(code)) {
